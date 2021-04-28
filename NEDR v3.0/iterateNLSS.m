@@ -1,4 +1,4 @@
-function [NLEMaxima_Instaneous NLE_Instaneous LinExponent tfr time freq] = getNLSS_iter(sdata, Fs, frmsize)
+function [NLEMaxima_Instaneous, NLE_Instaneous, LinExponent, tfr, time, freq] = iterateNLSS(sdata, Fs, frmsize)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % iterateNLSS.m
 % 
@@ -8,7 +8,8 @@ function [NLEMaxima_Instaneous NLE_Instaneous LinExponent tfr time freq] = getNL
 %
 % Primary Author: Boquan Liu, PhD
 %
-% Last edited on 4/22/2021 by: Austin J. Scholp, MS 
+% Last edited on 4/28/2021 by: Austin J. Scholp, MS 
+% Took care of warning messages 
 %
 %%%%%%%%%%%%%%%%%/%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -16,7 +17,7 @@ SampFreq=Fs;
 wsize = floor(frmsize*Fs);
 
 %% The Short-Time-Fourier-Transform with phase
-[m,n]=size(sdata');
+[~,n]=size(sdata');
 C=zeros(1,n);
 time=(1:n)/Fs;
 freq=(Fs/2)/(n/2):(Fs/2)/(n/2):(Fs/2);
@@ -25,8 +26,8 @@ tfr = NLSTFT(sdata,C,Fs,wsize);
 
 %interation2
 %IF estimated by peak data of TF representation.
-[v, I] = max(abs(tfr(1:(n/2),:)),[],1);
-[p, z] = polylsqr(time,freq(I),4);
+[~, I] = max(abs(tfr(1:(n/2),:)),[],1);
+[p, ~] = polylsqr(time,freq(I),4);
 
 %Calculate the first order derivative of estimated IF.
 C=diff(p)*SampFreq;
@@ -37,8 +38,8 @@ tfr = NLSTFT(sdata,C,Fs,wsize);
 %.........................................
 %interation3
 %IF estimated by peak data of TF representation.
-[v, I] = max(abs(tfr(1:(n/2),:)),[],1);
-[p, z] = polylsqr(time,freq(I),4);
+[~, I] = max(abs(tfr(1:(n/2),:)),[],1);
+[p, ~] = polylsqr(time,freq(I),4);
 
 %Calculate the first order derivative of estimated IF.
 
@@ -50,8 +51,8 @@ tfr = NLSTFT(sdata,C1,Fs,wsize);
 %.........................................
 %interation4
 %IF estimated by peak data of TF representation.
-[v, I] = max(abs(tfr(1:(n/2),:)),[],1);
-[p, z] = polylsqr(time,freq(I),4);
+[~, I] = max(abs(tfr(1:(n/2),:)),[],1);
+[p, ~] = polylsqr(time,freq(I),4);
 
 %Calculate the first order derivative of estimated IF.
 
@@ -66,11 +67,13 @@ S = abs(tfr(1:fix(n/2)+1,:));
 maxPower = max(S(:));
 S = S / maxPower;
 
+S=S';
+
 %Calculating Convergence Ratio: -log(LinRatio)  ~labeled as LinExponent~
-SMax = max(S');
+SMax = max(S);
 % transpose used because we are graphing up the frequency axis of the 
 % spectrogram, not down the time axis
-SMin = min(S');
+SMin = min(S);
 
 LinExponent = sum(SMax-SMin)/n;
 NLE_Instaneous=SMax-SMin;

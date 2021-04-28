@@ -1,6 +1,5 @@
 function [p, z] = polylsqr(x,y,m)
 
-n=length(x);
 n=length(y);
 for k=1:2*m+1
    c(k)=sum(x.^(k-1));
