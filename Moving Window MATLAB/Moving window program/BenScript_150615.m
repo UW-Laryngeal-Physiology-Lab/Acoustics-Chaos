@@ -1,0 +1,1 @@
+[D2,tau,dim] = getWaveFileD2('G:\PilotstudyAim1&2\Normal voice segments\BJV1NAL Width=0.2 Sec\1.725 S.wav');
