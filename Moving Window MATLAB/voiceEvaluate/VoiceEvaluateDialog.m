@@ -45,7 +45,7 @@ end
 
 
 % --- Executes just before VoiceEvaluateDialog is made visible.
-function VoiceEvaluateDialog_OpeningFcn(hObject, eventdata, handles, varargin)
+function VoiceEvaluateDialog_OpeningFcn(hObject, ~, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -55,7 +55,7 @@ function VoiceEvaluateDialog_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for VoiceEvaluateDialog
 handles.output = hObject;
 
-iniBars_Callback( hObject, handles);
+iniBars_Callback(hObject, handles);
 
 % Update handles structure
 guidata(hObject, handles);
@@ -65,7 +65,7 @@ guidata(hObject, handles);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = VoiceEvaluateDialog_OutputFcn(hObject, eventdata, handles) 
+function varargout = VoiceEvaluateDialog_OutputFcn(~, ~, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -76,7 +76,7 @@ varargout{1} = handles.output;
 
 
 % --- Executes on selection change in FileListbox.
-function FileListbox_Callback(hObject, eventdata, handles)
+function FileListbox_Callback(hObject, ~, handles)
 % hObject    handle to FileListbox (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -84,7 +84,7 @@ function FileListbox_Callback(hObject, eventdata, handles)
 % Hints: contents = cellstr(get(hObject,'String')) returns FileListbox contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from FileListbox
 idxClickSel = get(hObject,'value');
-if idxClickSel ~= handles.fileInfo.idxCurrentFile && idxClickSel~=1 && idxClickSel ~=2;
+if idxClickSel ~= handles.fileInfo.idxCurrentFile && idxClickSel~=1 && idxClickSel ~=2
     handles.fileInfo.currentFileName = handles.fileInfo.allFileNames(idxClickSel);
     handles.fileInfo.idxCurrentFile = idxClickSel;
     
@@ -94,7 +94,7 @@ end
 iniBars_Callback(hObject,handles);
 
 % --- Executes during object creation, after setting all properties.
-function FileListbox_CreateFcn(hObject, eventdata, handles)
+function FileListbox_CreateFcn(hObject, ~, ~)
 % hObject    handle to FileListbox (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
@@ -107,7 +107,7 @@ end
 
 
 % --- Executes on button press in selDirBtn.
-function selDirBtn_Callback(hObject, eventdata, handles)
+function selDirBtn_Callback(hObject, ~, handles)
 % hObject    handle to selDirBtn (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -168,7 +168,7 @@ iniBars_Callback(hObject,handles);
 
 
 
-function CurrentFolderEdit_Callback(hObject, eventdata, handles)
+function CurrentFolderEdit_Callback(~, ~, ~)
 % hObject    handle to CurrentFolderEdit (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -181,7 +181,7 @@ function CurrentFolderEdit_Callback(hObject, eventdata, handles)
 
 
 % --- Executes during object creation, after setting all properties.
-function CurrentFolderEdit_CreateFcn(hObject, eventdata, handles)
+function CurrentFolderEdit_CreateFcn(hObject, ~, ~)
 % hObject    handle to CurrentFolderEdit (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
@@ -195,7 +195,7 @@ end
 
 
 
-function CurrentFileEdit_Callback(hObject, eventdata, handles)
+function CurrentFileEdit_Callback(~, ~, ~)
 % hObject    handle to CurrentFileEdit (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -208,7 +208,7 @@ function CurrentFileEdit_Callback(hObject, eventdata, handles)
 
 
 % --- Executes during object creation, after setting all properties.
-function CurrentFileEdit_CreateFcn(hObject, eventdata, handles)
+function CurrentFileEdit_CreateFcn(hObject, ~, ~)
 % hObject    handle to CurrentFileEdit (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
@@ -221,7 +221,7 @@ end
 %--------------------------------------------------------------------------
 
 % --- Executes on button press in PreFileBtn.
-function PreFileBtn_Callback(hObject, eventdata, handles)
+function PreFileBtn_Callback(hObject, ~, handles)
 % hObject    handle to PreFileBtn (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -242,7 +242,7 @@ iniBars_Callback(hObject,handles);
 
 
 % --- Executes on button press in NextFileBtn.
-function NextFileBtn_Callback(hObject, eventdata, handles)
+function NextFileBtn_Callback(hObject, ~, handles)
 % hObject    handle to NextFileBtn (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -262,7 +262,7 @@ iniBars_Callback(hObject,handles);
 %--------------------------------------------------------------------------
 
 % --- Executes on button press in SaveExcelBtn.
-function SaveExcelBtn_Callback(hObject, eventdata, handles)
+function SaveExcelBtn_Callback(~, ~, handles)
 % hObject    handle to SaveExcelBtn (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -365,8 +365,8 @@ set(hAxes,...
 'xtick', [0,12,43,80]);
 set(hAxes,'XTickLabel',{' ';'MI';'MO';'SE'},'FontSize',8);
 %--------------------------------------------------------------------------
-function setEvaluateNumByClick(h, e,hNumPatch,hTxt)
-[x,y]=ginput(1);
+function setEvaluateNumByClick(~, ~,hNumPatch,hTxt)
+[x,~]=ginput(1);
 theNum = round(x);
 
 % colormin = 1.5;
@@ -402,7 +402,7 @@ set(hTxt,'String',num2str(theNum));
 
 
 % --- Executes on button press in selExcelFileBtn.
-function selExcelFileBtn_Callback(hObject, eventdata, handles)
+function selExcelFileBtn_Callback(hObject, ~, handles)
 % hObject    handle to selExcelFileBtn (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -417,7 +417,7 @@ iniBars_Callback(hObject,handles);
 
 
 
-function SaveExcelFileNameEdit_Callback(hObject, eventdata, handles)
+function SaveExcelFileNameEdit_Callback(~, ~, ~)
 % hObject    handle to SaveExcelFileNameEdit (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -427,7 +427,7 @@ function SaveExcelFileNameEdit_Callback(hObject, eventdata, handles)
 
 
 % --- Executes during object creation, after setting all properties.
-function SaveExcelFileNameEdit_CreateFcn(hObject, eventdata, handles)
+function SaveExcelFileNameEdit_CreateFcn(hObject, ~, ~)
 % hObject    handle to SaveExcelFileNameEdit (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
@@ -440,7 +440,7 @@ end
 
 
 % --- Executes on button press in SaveToCellBtn.
-function SaveToCellBtn_Callback(hObject, eventdata, handles)
+function SaveToCellBtn_Callback(hObject, ~, handles)
 % hObject    handle to SaveToCellBtn (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -476,23 +476,23 @@ else
 end
 
 guidata(hObject,handles);
-k=5;
+
 
 
 % --- Executes on button press in PlayBtn.
-function PlayBtn_Callback(hObject, eventdata, handles)
+function PlayBtn_Callback(~, ~, handles)
 % hObject    handle to PlayBtn (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
 fileName = strcat(handles.fileInfo.fileFolder ,'\', handles.fileInfo.currentFileName );
 fileName = fileName{1};
-[wavData,fsamp] = wavread(fileName);
+[wavData,fsamp] = audioread(fileName);
 soundsc(wavData, fsamp);
 
 
 % --- Executes on button press in radioPitchLH1.
-function radioPitchLH1_Callback(hObject, eventdata, handles)
+function radioPitchLH1_Callback(~, ~, handles)
 % hObject    handle to radioPitchLH1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -501,7 +501,7 @@ function radioPitchLH1_Callback(hObject, eventdata, handles)
 set(handles.radioPitchLH2,'Value',0);
 
 % --- Executes on button press in radioPitchLH2.
-function radioPitchLH2_Callback(hObject, eventdata, handles)
+function radioPitchLH2_Callback(~, ~, handles)
 % hObject    handle to radioPitchLH2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -511,7 +511,7 @@ set(handles.radioPitchLH1,'Value',0);
 
 
 % --- Executes on button press in radioLoudnessLH1.
-function radioLoudnessLH1_Callback(hObject, eventdata, handles)
+function radioLoudnessLH1_Callback(~, ~, handles)
 % hObject    handle to radioLoudnessLH1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -521,7 +521,7 @@ set(handles.radioLoudnessLH2,'Value',0);
 
 
 % --- Executes on button press in radioLoudnessLH2.
-function radioLoudnessLH2_Callback(hObject, eventdata, handles)
+function radioLoudnessLH2_Callback(~, ~, handles)
 % hObject    handle to radioLoudnessLH2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
